@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'relay-runtime';
 import type { MembersList_members$key } from '@github/relay/__generated__/MembersList_members.graphql';
 import { useFragment } from 'react-relay';
-import { Member } from './Members';
+// import { Member } from './Members';
 
 type MembersListProps = {
     members: MembersList_members$key;
@@ -39,7 +39,7 @@ export const  MembersList:React.FC<MembersListProps> = ( props ) => {
         <ul>
           {members?.map((member) => (
             <li key={member?.id}>
-              <Member member={member} />
+              {/* <Member member={member} /> */}
             </li>
           ))}
         </ul>

@@ -16,7 +16,8 @@ const useAuthQuery = graphql`
 export const useAuth = () => {
   const router = useRouter();
   const { auth_error } = router.query;
-  const { setInLocalStorage, getFromLocalStorage, removeFromLocalStorage } =
+  // const { setInLocalStorage, getFromLocalStorage, removeFromLocalStorage } =
+  const { removeFromLocalStorage } =
     useLocalStorage();
   const [authError, setAuthError] = useState<string | null>(auth_error ?? null);
   const [loggingOut, setLoggingOut] = useState(false);
@@ -59,7 +60,7 @@ console.log("result:", result)
         throw data.error;
       }
 
-      setInLocalStorage('user_token', data.token);
+      // setInLocalStorage('user_token', data.token);
 
       const queryRes = await getClientUsers();
 
@@ -93,7 +94,7 @@ console.log("result:", result)
   const logout = async () => {
     setLoggingOut(true);
     try {
-      const token = getFromLocalStorage('user_token');
+      // const token = getFromLocalStorage('user_token');
       const reuslt = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/log_out`,
         {
@@ -101,7 +102,7 @@ console.log("result:", result)
           headers: {
             accept: 'application/json',
             'content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -117,7 +118,7 @@ console.log("result:", result)
       }
 
       if (data.logout.success) {
-        removeFromLocalStorage('user_token');
+        // removeFromLocalStorage('user_token');
         removeFromLocalStorage('relay_records');
 
         router.push('/');

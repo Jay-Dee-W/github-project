@@ -20,7 +20,7 @@ fragment homeAssignedTo on PullRequest {
   }
 }
 `;
-
+console.log(assignedToFragment)
 
 const TeamHustleQuery = graphql`
 query homeQuery {
