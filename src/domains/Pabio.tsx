@@ -1,51 +1,47 @@
 
 //  import  {MembersList}  from '@github/domains/Memebers/MembersList';
-import { HomePageQuery as HomePageQueryTypes } from '@github/relay/__generated__/HomePageQuery.graphql';
+import { PabioPageQuery as PabioPageQueryTypes } from '@github/relay/__generated__/PabioPageQuery.graphql';
 import React from 'react';
 import { graphql, PreloadedQuery, usePreloadedQuery } from 'react-relay';
 
-export const HomePageQuery = graphql`
-query HomePageQuery {
-  organization(login: "GitstartHQ") {
-    team(slug: "team-hustle") {
-      repositories(first: 100) {
-        nodes {
-          name
-          pullRequests(
-            first: 100, 
-            states: OPEN, 
-            orderBy: { field: CREATED_AT, direction: ASC }
-          ) {
+export const PabioPageQuery = graphql`
+query PabioPageQuery {
+    search(
+      query: "repo:GitstartHQ/client-pabio-firstquadrant-ai is:pr is:open"
+      type: ISSUE
+      first: 100
+    ) {
+      nodes {
+        ... on PullRequest {
+          createdAt
+          url
+          labels(first: 5) {
             nodes {
-              createdAt
-              url
-              labels(last: 1) {
-                nodes {
-                  name
-                }
-              }
+              name
             }
           }
         }
       }
     }
   }
-}
 `;
 
-interface HomePageProps {
-  queryRef: PreloadedQuery<HomePageQueryTypes>;
+interface PabioPageProps {
+  queryRef: PreloadedQuery<PabioPageQueryTypes>;
 }
 
-export const Home = ({ queryRef }: HomePageProps) => {
+export const Pabio = ({ queryRef }: PabioPageProps) => {
 
-  const data = usePreloadedQuery(HomePageQuery, queryRef);
+  const data = usePreloadedQuery(PabioPageQuery, queryRef);
   // const repos = viewer?.organization?.team?.repositories?.nodes?.filter((repo) => ( !repo?.isArchived )) || [];
 console.log(data)
 
   return (
     <div className='App'>
       <h1>repos</h1>
+      <p>
+      {JSON.stringify(data)}
+      </p>
       {/* <table>
         <thead>
           <tr>

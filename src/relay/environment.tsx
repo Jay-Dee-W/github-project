@@ -25,7 +25,7 @@ export const environment = new Environment({
       // this middleware automatically adds 'Bearer ' at the start of the Authorization header
       token: () =>
         // window.localStorage.getItem(LOCAL_STORAGE_USER_TOKEN_KEY) ?? '',
-       "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"
+       "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"
     }),
     next => async req => {
       const res = await next(req);

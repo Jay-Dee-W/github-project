@@ -1,14 +1,14 @@
 
 //  import  {MembersList}  from '@github/domains/Memebers/MembersList';
-import { HomePageQuery as HomePageQueryTypes } from '@github/relay/__generated__/HomePageQuery.graphql';
+import { OorsigPageQuery as OorsigPageQueryTypes } from '@github/relay/__generated__/OorsigPageQuery.graphql';
 import React from 'react';
 import { graphql, PreloadedQuery, usePreloadedQuery } from 'react-relay';
 
-export const HomePageQuery = graphql`
-query HomePageQuery {
+export const OorsigPageQuery = graphql`
+query OorsigPageQuery {
   organization(login: "GitstartHQ") {
     team(slug: "team-hustle") {
-      repositories(first: 100) {
+      repositories(query: "Oorsig") {
         nodes {
           name
           pullRequests(
@@ -19,7 +19,7 @@ query HomePageQuery {
             nodes {
               createdAt
               url
-              labels(last: 1) {
+              labels(first: 5) {
                 nodes {
                   name
                 }
@@ -33,19 +33,22 @@ query HomePageQuery {
 }
 `;
 
-interface HomePageProps {
-  queryRef: PreloadedQuery<HomePageQueryTypes>;
+interface OorsigPageProps {
+  queryRef: PreloadedQuery<OorsigPageQueryTypes>;
 }
 
-export const Home = ({ queryRef }: HomePageProps) => {
+export const Oorsig = ({ queryRef }: OorsigPageProps) => {
 
-  const data = usePreloadedQuery(HomePageQuery, queryRef);
+  const data = usePreloadedQuery(OorsigPageQuery, queryRef);
   // const repos = viewer?.organization?.team?.repositories?.nodes?.filter((repo) => ( !repo?.isArchived )) || [];
-console.log(data)
+console.log(JSON.stringify(data))
 
   return (
     <div className='App'>
       <h1>repos</h1>
+      <p>
+      {JSON.stringify(data)}
+      </p>
       {/* <table>
         <thead>
           <tr>

@@ -1,27 +1,27 @@
 
 //  import  {MembersList}  from '@github/domains/Memebers/MembersList';
-import { HomePageQuery as HomePageQueryTypes } from '@github/relay/__generated__/HomePageQuery.graphql';
+import { SudostudyPageQuery as SudostudyPageQueryTypes } from '@github/relay/__generated__/SudostudyPageQuery.graphql';
 import React from 'react';
 import { graphql, PreloadedQuery, usePreloadedQuery } from 'react-relay';
 
-export const HomePageQuery = graphql`
-query HomePageQuery {
-  organization(login: "GitstartHQ") {
-    team(slug: "team-hustle") {
-      repositories(first: 100) {
-        nodes {
-          name
-          pullRequests(
-            first: 100, 
-            states: OPEN, 
-            orderBy: { field: CREATED_AT, direction: ASC }
-          ) {
-            nodes {
-              createdAt
-              url
-              labels(last: 1) {
-                nodes {
-                  name
+export const SudostudyPageQuery = graphql`
+query SudostudyPageQuery {
+    organization(login: "GitstartHQ") {
+      team(slug: "team-hustle") {
+        repositories(query: "Sudostudy") {
+          nodes {
+            pullRequests(
+              first: 100
+              states: OPEN
+              orderBy: {field: CREATED_AT, direction: ASC}
+            ) {
+              nodes {
+                createdAt
+                url
+                labels(first: 5) {
+                  nodes {
+                    name
+                  }
                 }
               }
             }
@@ -30,22 +30,24 @@ query HomePageQuery {
       }
     }
   }
-}
 `;
 
-interface HomePageProps {
-  queryRef: PreloadedQuery<HomePageQueryTypes>;
+interface SudostudyPageProps {
+  queryRef: PreloadedQuery<SudostudyPageQueryTypes>;
 }
 
-export const Home = ({ queryRef }: HomePageProps) => {
+export const Sudostudy = ({ queryRef }: SudostudyPageProps) => {
 
-  const data = usePreloadedQuery(HomePageQuery, queryRef);
+  const data = usePreloadedQuery(SudostudyPageQuery, queryRef);
   // const repos = viewer?.organization?.team?.repositories?.nodes?.filter((repo) => ( !repo?.isArchived )) || [];
 console.log(data)
 
   return (
     <div className='App'>
       <h1>repos</h1>
+      <p>
+      {JSON.stringify(data)}
+      </p>
       {/* <table>
         <thead>
           <tr>

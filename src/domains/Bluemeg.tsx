@@ -1,16 +1,15 @@
 
 //  import  {MembersList}  from '@github/domains/Memebers/MembersList';
-import { HomePageQuery as HomePageQueryTypes } from '@github/relay/__generated__/HomePageQuery.graphql';
+import { BluemegPageQuery as BluemegPageQueryTypes } from '@github/relay/__generated__/BluemegPageQuery.graphql';
 import React from 'react';
 import { graphql, PreloadedQuery, usePreloadedQuery } from 'react-relay';
 
-export const HomePageQuery = graphql`
-query HomePageQuery {
+export const BluemegPageQuery = graphql`
+query BluemegPageQuery {
   organization(login: "GitstartHQ") {
     team(slug: "team-hustle") {
-      repositories(first: 100) {
+      repositories(query: "bluemeg") {
         nodes {
-          name
           pullRequests(
             first: 100, 
             states: OPEN, 
@@ -19,7 +18,7 @@ query HomePageQuery {
             nodes {
               createdAt
               url
-              labels(last: 1) {
+              labels(first: 5) {
                 nodes {
                   name
                 }
@@ -33,19 +32,22 @@ query HomePageQuery {
 }
 `;
 
-interface HomePageProps {
-  queryRef: PreloadedQuery<HomePageQueryTypes>;
+interface BluemegPageProps {
+  queryRef: PreloadedQuery<BluemegPageQueryTypes>;
 }
 
-export const Home = ({ queryRef }: HomePageProps) => {
+export const Bluemeg = ({ queryRef }: BluemegPageProps) => {
 
-  const data = usePreloadedQuery(HomePageQuery, queryRef);
+  const data = usePreloadedQuery(BluemegPageQuery, queryRef);
   // const repos = viewer?.organization?.team?.repositories?.nodes?.filter((repo) => ( !repo?.isArchived )) || [];
-console.log(data)
+console.log(JSON.stringify(data))
 
   return (
     <div className='App'>
       <h1>repos</h1>
+      <p>
+      {JSON.stringify(data)}
+      </p>
       {/* <table>
         <thead>
           <tr>
