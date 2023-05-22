@@ -3,6 +3,7 @@ import { RelayEnvironmentProvider } from '../relay/environment';
 import { ErrorBoundary } from '../elements/ErrorBoundary';
 import { NoSsr } from '../elements/NoSsr';
 import { StyledProvider } from '../elements/StyledProviders';
+import { AuthGateway } from './AuthGateway';
 
 // Providers + any other wrapper
 export const Providers: React.FC<{ children: React.ReactNode }> = ({
@@ -13,7 +14,7 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({
       <ErrorBoundary>
         <RelayEnvironmentProvider>
           <NoSsr>
-            {children}
+            <AuthGateway>{children}</AuthGateway>
           </NoSsr>
         </RelayEnvironmentProvider>
       </ErrorBoundary>
