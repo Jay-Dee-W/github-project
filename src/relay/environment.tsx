@@ -8,8 +8,10 @@ import {
   urlMiddleware,
   authMiddleware,
 } from 'react-relay-network-modern';
+import { getSession, useSession } from 'next-auth/react';
+import { JWT } from 'next-auth/jwt';
 
-export const LOCAL_STORAGE_USER_TOKEN_KEY = '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';
+// export const LOCAL_STORAGE_USER_TOKEN_KEY = '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';
 export const LOCAL_STORAGE_RELAY_RECORDS_KEY = 'relay_records';
 
 export const environment = new Environment({
@@ -23,9 +25,13 @@ export const environment = new Environment({
     }),
     authMiddleware({
       // this middleware automatically adds 'Bearer ' at the start of the Authorization header
-      token: () =>
-        // window.localStorage.getItem(LOCAL_STORAGE_USER_TOKEN_KEY) ?? '',
-       "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"
+      token: () =>{ return "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";
+      //   console.log ("LOCAL_STORAGE_USER_TOKEN_KEY", window.localStorage.getItem("LOCAL_STORAGE_USER_TOKEN_KEY") )
+      //   const  session = JWT
+      //   return(
+      //  session?.token
+      //   )
+      }
     }),
     next => async req => {
       const res = await next(req);
@@ -59,7 +65,13 @@ export interface RelayEnvironmentProviderProps {
 export const RelayEnvironmentProvider = (
   props: RelayEnvironmentProviderProps
 ) => {
+  const {data: session} = useSession()
+  // console.log("testing", session)
+  const LOCAL_STORAGE_USER_TOKEN_KEY = session?.access_token
+  // console.log(LOCAL_STORAGE_USER_TOKEN_KEY)
+
   return (
+
     <RelayRelayEnvironmentProvider environment={environment}>
       {props.children}
     </RelayRelayEnvironmentProvider>
