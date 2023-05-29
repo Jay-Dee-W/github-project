@@ -1,4 +1,3 @@
-import React from 'react';
 import { Environment, Store, RecordSource } from 'relay-runtime';
 import { RelayEnvironmentProvider as RelayRelayEnvironmentProvider } from 'react-relay';
 import 'regenerator-runtime/runtime'; // required for react-relay-network-modern
@@ -8,11 +7,15 @@ import {
   urlMiddleware,
   authMiddleware,
 } from 'react-relay-network-modern';
-import { getSession, useSession } from 'next-auth/react';
-import { JWT } from 'next-auth/jwt';
+import React from 'react';
+import { Session } from 'next-auth';
+import { getSession } from 'next-auth/react';
 
-// export const LOCAL_STORAGE_USER_TOKEN_KEY = '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';
+interface session extends Session {
+  access_token?: string | null;
+}
 export const LOCAL_STORAGE_RELAY_RECORDS_KEY = 'relay_records';
+export const LOCAL_STORAGE_USER_TOKEN_KEY = ""
 
 export const environment = new Environment({
   network: new RelayNetworkLayer([
@@ -25,13 +28,10 @@ export const environment = new Environment({
     }),
     authMiddleware({
       // this middleware automatically adds 'Bearer ' at the start of the Authorization header
-      token: () =>{ return "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";
-      //   console.log ("LOCAL_STORAGE_USER_TOKEN_KEY", window.localStorage.getItem("LOCAL_STORAGE_USER_TOKEN_KEY") )
-      //   const  session = JWT
-      //   return(
-      //  session?.token
-      //   )
-      }
+      token: async () => { 
+        const session: session | null = await getSession();
+        return session?.access_token ?? '';
+      },
     }),
     next => async req => {
       const res = await next(req);
@@ -48,7 +48,7 @@ export const environment = new Environment({
   store: new Store(getInitialRecords()),
 });
 
-function getInitialRecords(): RecordSource  {
+function getInitialRecords(): RecordSource {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_RELAY_RECORDS_KEY);
     if (!raw) return new RecordSource();
@@ -65,13 +65,7 @@ export interface RelayEnvironmentProviderProps {
 export const RelayEnvironmentProvider = (
   props: RelayEnvironmentProviderProps
 ) => {
-  const {data: session} = useSession()
-  // console.log("testing", session)
-  const LOCAL_STORAGE_USER_TOKEN_KEY = session?.access_token
-  // console.log(LOCAL_STORAGE_USER_TOKEN_KEY)
-
   return (
-
     <RelayRelayEnvironmentProvider environment={environment}>
       {props.children}
     </RelayRelayEnvironmentProvider>
