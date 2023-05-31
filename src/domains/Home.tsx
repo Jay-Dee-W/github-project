@@ -4,6 +4,7 @@ import { HomePageQuery as HomePageQueryTypes } from '@github/relay/__generated__
 import React from 'react';
 import { graphql, PreloadedQuery, usePreloadedQuery } from 'react-relay';
 
+
 export const HomePageQuery = graphql`
 query HomePageQuery {
   JDWilson: search(
@@ -14,10 +15,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -31,10 +34,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -48,10 +53,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -65,10 +72,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -82,10 +91,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -99,10 +110,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -116,10 +129,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -133,10 +148,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -150,10 +167,12 @@ query HomePageQuery {
     nodes {
       ... on PullRequest {
         title
+        url
         createdAt
-        labels(first: 5) {
+        labels(first: 5 ) {
           nodes {
             name
+            createdAt
           }
         }
       }
@@ -180,82 +199,154 @@ console.log(data)
       {/* {JSON.stringify(data.JDWilson.nodes)} */}
       {data.JDWilson.nodes?.map(pr => {
         return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+                  {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Wajiha Niazi </p>
       <p>
       {/* {JSON.stringify(data.WajihaNiazi.nodes)} */}
       {data.WajihaNiazi.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Hashim </p>
       <p>
       {/* {JSON.stringify(data.Hashim.nodes)} */}
       {data.Hashim.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Sheldon </p>
       <p>
       {/* {JSON.stringify(data.Sheldon.nodes)} */}
       {data.Sheldon.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Janvier </p>
       <p>
       {/* {JSON.stringify(data.Janvier.nodes)} */}
       {data.Janvier.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Aqida </p>
       <p>
       {/* {JSON.stringify(data.Aqida.nodes)} */}
       {data.Aqida.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Sayed </p>
       <p>
       {/* {JSON.stringify(data.Sayed.nodes)} */}
       {data.Sayed.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
-      <p> @Pascal </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
+      <p> @Pascal Ojinnaka </p>
       <p>
       {/* {JSON.stringify(data.Pascal.nodes)} */}
       {data.Pascal.nodes?.map(pr => {
-        return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+         return(
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
       <p> @Fred_Rwagatenga </p>
       <p>
       {/* {JSON.stringify(data.Fred_Rwagatenga.nodes)} */}
       {data.Fred_Rwagatenga.nodes?.map(pr => {
         return(
-          <p>- {pr?.title} {pr?.createdAt} {pr?.labels?.nodes?.map(lable => ` **${lable?.name}** `) }</p>
-        )
-        })}
-      </p>
+          <p>
+            - [ {pr?.title} ]({pr?.url})
+            {pr?.labels?.nodes?.map((label, i) => {
+              if (pr?.labels?.nodes?.length) {
+                return (i === pr?.labels?.nodes?.length -1 ? ` **${label?.name}** ` : ` ${label?.name} `);
+              }
+            return null; 
+          })}
+          {Math.floor( (new Date().getTime() -  new Date(pr?.createdAt.split('T')[0]).getTime())/ (1000 * 60 * 60 * 24) )}days
+          </p>
+        )})}
+        </p>
     </div>
   );
 }
