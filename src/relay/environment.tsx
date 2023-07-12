@@ -11,8 +11,8 @@ import React from 'react';
 import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 
-interface session extends Session {
-  access_token?: string | null;
+interface ISession extends Session {
+  accessToken?: string | null;
 }
 export const LOCAL_STORAGE_RELAY_RECORDS_KEY = 'relay_records';
 export const LOCAL_STORAGE_USER_TOKEN_KEY = ""
@@ -28,9 +28,10 @@ export const environment = new Environment({
     }),
     authMiddleware({
       // this middleware automatically adds 'Bearer ' at the start of the Authorization header
-      token: async () => { return "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"
-        // const session: session | null = await getSession();
-        // return session?.access_token ?? '';
+      token: async () => { 
+        return ""
+        // const session: ISession | null = await getSession();
+        // return session?.accessToken ?? '';
       },
     }),
     next => async req => {

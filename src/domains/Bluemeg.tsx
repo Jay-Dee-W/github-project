@@ -63,31 +63,21 @@ export const Bluemeg = ({ queryRef }: BluemegPageProps) => {
   // const repos = viewer?.organization?.team?.repositories?.nodes?.filter((repo) => ( !repo?.isArchived )) || [];
 console.log(JSON.stringify(data))
 
+const Hustel = data.organization?.hustle?.repositories?.nodes?.map(repos => repos?.pullRequests.nodes)
+console.log("Hustel:", Hustel)
   return (
     <div className='App'>
       <h1>repos</h1>
-      <p>
-      {JSON.stringify(data)}
-      </p>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>name</th>
-            <th>Open PRs</th>
-            <th>Closed PRs</th>
-          </tr>
-        </thead>
-        <tbody>
-          {repos.map( (repo) => (
-            <tr key={repo?.id}>
-            <td>{repo?.name}</td>
-            <td>{repo?.openPRs?.nodes?.length}</td>
-            <td>{repo?.ClosedPRs?.nodes?.length}</td>
-          </tr>
-          ))}
-        </tbody>
-      </table> */}
-        {/* <MembersList members={viewer?.organization?.team } /> */}
-    </div>
+      <p> @JD Wilson </p>
+      {Hustel?.flatMap( (repos) => 
+      repos?.map(prs =>{
+            return(
+              <p>
+                {prs?.createdAt}
+                {prs?.labels}
+                {prs?.url}
+              </p>
+            )}))} 
+      </div>
   );
 }

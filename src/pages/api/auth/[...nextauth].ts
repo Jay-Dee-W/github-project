@@ -21,13 +21,13 @@ session: {
   callbacks: {
     async jwt({token, account}) {
       if (account) {
-        token = Object.assign({}, token, { access_token: account.access_token });
+        token = Object.assign({}, token, { accessToken: account.access_token });
       }
       return token
     },
     async session({session, token}) {
     if(session) {
-      session = Object.assign({}, session, {access_token: token.access_token})
+      session = Object.assign({}, session, {accessToken: token.accessToken})
       }
     return session
     }

@@ -196,7 +196,7 @@ console.log(data)
       <h1>repos</h1>
       <p> @JD Wilson </p>
       <p>
-      {/* {JSON.stringify(data.JDWilson.nodes)} */}
+      {/* {JSON.stringify(data.JDWilson.nodes)} */} 
       {data.JDWilson.nodes?.map(pr => {
         return(
           <p>
